@@ -39,29 +39,24 @@ public sealed class StateService
             {
                 return null;
             }
-
-            foreach (CreateStateRequest item in request.States)
+            foreach (CreateStateRequest stateRequest in request.States)
             {
-                if (string.IsNullOrWhiteSpace(item.Name))
-                {
+                if (string.IsNullOrWhiteSpace(stateRequest.Name))
                     throw new ArgumentException("Name cannot be empty.");
-                }
 
-                if (string.IsNullOrWhiteSpace(item.Code))
-                {
+                if (string.IsNullOrWhiteSpace(stateRequest.Code))
                     throw new ArgumentException("Code cannot be empty.");
-                }
             }
 
             IList<State> dbStates = _dbContext.State.ToList();
 
-            HashSet<int> incomingIds = request.States
-                .Where(x => x.Id > 0)
-                .Select(x => x.Id)
+            HashSet<int> requestStateIds = request.States
+                .Where(state => state.Id > 0)
+                .Select(state => state.Id)
                 .ToHashSet();
 
             List<State> statesToDelete = dbStates
-                .Where(dbState => !incomingIds.Contains(dbState.Id))
+                .Where(dbState => !requestStateIds.Contains(dbState.Id))
                 .ToList();
 
             if (statesToDelete.Count > 0)
