@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="Practice.core/Practice.Core.csproj" />
+  <Project Path="Practice.persistence/Practice.Persistence.csproj" />
+  <Project Path="Practice.Services/Practice.Services.csproj" />
+  <Project Path="Practice.web/Practice.Web.csproj" />
+</Solution>
